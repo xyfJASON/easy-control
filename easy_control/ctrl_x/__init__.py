@@ -14,6 +14,12 @@ from .pipelines.pipeline_sdxl import CtrlXStableDiffusionXLPipeline
 class CtrlX:
     def __init__(
             self,
+            pretrained_model_name_or_path: str = "stabilityai/stable-diffusion-xl-base-1.0",
+            torch_dtype: torch.dtype = torch.float16 if torch.cuda.is_available() else torch.float32,
+            variant: str = "fp16" if torch.cuda.is_available() else "fp32",
+            use_safetensors: bool = True,
+            device: str = "cuda" if torch.cuda.is_available() else "cpu",
+
             num_inference_steps: int = 20,
             structure_schedule: float = 0.6,
             appearance_schedule: float = 0.6,
@@ -21,15 +27,16 @@ class CtrlX:
         self.num_inference_steps = num_inference_steps
 
         # build pipeline
-        torch_dtype = torch.float16 if torch.cuda.is_available() else torch.float32
-        device = "cuda" if torch.cuda.is_available() else "cpu"
-        variant = "fp16" if device == "cuda" else "fp32"
         self.scheduler = DDIMScheduler.from_pretrained(
-            pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0", subfolder="scheduler",
+            pretrained_model_name_or_path=pretrained_model_name_or_path,
+            subfolder="scheduler",
         )
         self.pipe = CtrlXStableDiffusionXLPipeline.from_pretrained(
-            pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0",
-            scheduler=self.scheduler, torch_dtype=torch_dtype, variant=variant, use_safetensors=True,
+            pretrained_model_name_or_path=pretrained_model_name_or_path,
+            scheduler=self.scheduler,
+            torch_dtype=torch_dtype,
+            variant=variant,
+            use_safetensors=use_safetensors,
         ).to(device)
         self.pipe.scheduler.set_timesteps(num_inference_steps)
         self.pipe.safety_checker = None
@@ -51,12 +58,12 @@ class CtrlX:
     def sample(
             self,
             prompt: str,
-            structure_image: Union[str, Image.Image] = None,
-            appearance_image: Union[str, Image.Image] = None,
             structure_prompt: str = "",
             appearance_prompt: str = "",
-            positive_prompt: str = "high quality",
-            negative_prompt: str = "ugly, blurry, dark, low res, unrealistic",
+            structure_image: Union[str, Image.Image] = None,
+            appearance_image: Union[str, Image.Image] = None,
+            positive_prompt: str = None,
+            negative_prompt: str = None,
             eta: float = 0.0,
             width: int = 1024,
             height: int = 1024,

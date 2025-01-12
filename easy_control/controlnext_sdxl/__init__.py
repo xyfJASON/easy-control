@@ -67,5 +67,5 @@ class ControlNeXtSDXL:
                 negative_prompt=negative_prompt,
                 width=width,
                 height=height,
-            ).images
+            ).images[0]
         return image

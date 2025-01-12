@@ -96,4 +96,4 @@ class CtrlX:
             control_schedule=self.config["control_schedule"],
             self_recurrence_schedule=self.self_recurrence_schedule,
         )
-        return result
+        return result[0]

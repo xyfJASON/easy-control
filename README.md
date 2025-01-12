@@ -1,7 +1,7 @@
 # easy-control-diffusion
 
-We provide simple python wrappers for various controllable generation models so that you can easily establish the baselines for your paper.
-For full functionalities, please refer to their original repositories.
+We provide simple python wrappers for various diffusion-based controllable generation models so that you can easily establish the baselines for your paper.
+For full functionalities of these models, please refer to their original repositories.
 
 
 
@@ -34,9 +34,27 @@ pip install -r requirements.txt
 
 ## Usage
 
-### SDXL-based Models
+### T2I-Adapter ([arXiv](https://arxiv.org/abs/2302.08453) | [GitHub](https://github.com/TencentARC/T2I-Adapter))
 
-**Ctrl-X** ([arXiv](https://arxiv.org/abs/2406.07540) | [GitHub](https://github.com/genforce/ctrl-x/tree/main) | [website](https://genforce.github.io/ctrl-x)):
+```python
+from easy_control import T2IAdapter
+
+t2iadapter = T2IAdapter(
+    pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0",
+    adapter_model_name_or_path="TencentARC/t2i-adapter-depth-midas-sdxl-1.0",
+    vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix",
+    variant="fp16",
+    device="cuda",
+)
+result = t2iadapter.sample(
+    control_image="./test_images/city-depth.png",
+    prompt="a photo of a city at night, stars in the sky",
+    negative_prompt="worst quality",
+)
+result.show()
+```
+
+### Ctrl-X ([arXiv](https://arxiv.org/abs/2406.07540) | [GitHub](https://github.com/genforce/ctrl-x/tree/main) | [website](https://genforce.github.io/ctrl-x))
 
 ```python
 from easy_control import CtrlX
@@ -49,10 +67,10 @@ result = ctrl_x.sample(
     positive_prompt="high quality",
     negative_prompt="ugly, blurry, dark, low res, unrealistic",
 )
-result[0].show()
+result.show()
 ```
 
-**ControlNeXt** ([arXiv](https://arxiv.org/abs/2408.06070) | [GitHub](https://github.com/dvlab-research/ControlNeXt) | [website](https://pbihao.github.io/projects/controlnext/index.html)):
+### ControlNeXt ([arXiv](https://arxiv.org/abs/2408.06070) | [GitHub](https://github.com/dvlab-research/ControlNeXt) | [website](https://pbihao.github.io/projects/controlnext/index.html))
 
 ```python
 from easy_control import ControlNeXtSDXL
@@ -68,7 +86,7 @@ result = controlnext_sdxl.sample(
     control_image="./test_images/tower-depth-vidit.png",
     prompt="a diamond tower in the middle of a lava lake",
 )
-result[0].show()
+result.show()
 ```
 
 

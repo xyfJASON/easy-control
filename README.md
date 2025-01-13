@@ -59,7 +59,11 @@ result.show()
 ```python
 from easy_control import CtrlX
 
-ctrl_x = CtrlX()
+ctrl_x = CtrlX(
+    pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0",
+    variant="fp16",
+    device="cuda",
+)
 result = ctrl_x.sample(
     appearance_image="./test_images/cat.jpeg",
     structure_image="./test_images/rabbit-canny.png",
@@ -92,6 +96,18 @@ result.show()
 
 
 ## References
+
+```
+@inproceedings{mou2024t2i,
+  title={T2i-adapter: Learning adapters to dig out more controllable ability for text-to-image diffusion models},
+  author={Mou, Chong and Wang, Xintao and Xie, Liangbin and Wu, Yanze and Zhang, Jian and Qi, Zhongang and Shan, Ying},
+  booktitle={Proceedings of the AAAI Conference on Artificial Intelligence},
+  volume={38},
+  number={5},
+  pages={4296--4304},
+  year={2024}
+}
+```
 
 ```
 @inproceedings{lin2024ctrlx,

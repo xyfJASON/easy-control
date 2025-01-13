@@ -15,10 +15,10 @@ class CtrlX:
     def __init__(
             self,
             pretrained_model_name_or_path: str = "stabilityai/stable-diffusion-xl-base-1.0",
-            torch_dtype: torch.dtype = torch.float16 if torch.cuda.is_available() else torch.float32,
-            variant: str = "fp16" if torch.cuda.is_available() else "fp32",
+            torch_dtype: torch.dtype = torch.float16,
+            variant: str = "fp16",
             use_safetensors: bool = True,
-            device: str = "cuda" if torch.cuda.is_available() else "cpu",
+            device: str = "cuda",
 
             num_inference_steps: int = 20,
             structure_schedule: float = 0.6,

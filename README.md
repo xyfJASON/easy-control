@@ -54,6 +54,33 @@ result = t2iadapter.sample(
 result.show()
 ```
 
+### UniControl  ([arXiv](https://arxiv.org/abs/2305.11147) | [GitHub](https://github.com/salesforce/UniControl))
+
+```shell
+# Download pretrained models
+mkdir -p ./ckpts/unicontrol
+wget https://storage.googleapis.com/sfr-unicontrol-data-research/unicontrol.ckpt -O ./ckpts/unicontrol/unicontrol.ckpt
+wget https://storage.googleapis.com/sfr-unicontrol-data-research/unicontrol_v1.1.ckpt -O ./ckpts/unicontrol/unicontrol_v1.1.ckpt
+```
+
+```python
+from easy_control import UniControl
+
+unicontrol = UniControl(
+    pretrained_model_path="./ckpts/unicontrol/unicontrol.ckpt",
+    task_name="seg",
+    version="v1",
+    device="cuda",
+)
+result = unicontrol.sample(
+    control_image="./test_images/scenery-segmentation.png",
+    prompt="a beautiful landscape in winter",
+    positive_prompt="best quality, extremely detailed",
+    negative_prompt="worst quality",
+)
+result.show()
+```
+
 ### Ctrl-X ([arXiv](https://arxiv.org/abs/2406.07540) | [GitHub](https://github.com/genforce/ctrl-x/tree/main) | [website](https://genforce.github.io/ctrl-x))
 
 ```python
@@ -105,6 +132,16 @@ result.show()
   volume={38},
   number={5},
   pages={4296--4304},
+  year={2024}
+}
+```
+
+```
+@article{qin2024unicontrol,
+  title={UniControl: A Unified Diffusion Model for Controllable Visual Generation In the Wild},
+  author={Qin, Can and Zhang, Shu and Yu, Ning and Feng, Yihao and Yang, Xinyi and Zhou, Yingbo and Wang, Huan and Niebles, Juan Carlos and Xiong, Caiming and Savarese, Silvio and others},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
   year={2024}
 }
 ```

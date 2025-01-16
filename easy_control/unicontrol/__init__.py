@@ -74,6 +74,7 @@ class UniControl:
             negative_prompt: str = None,
             width: int = 512,
             height: int = 512,
+            control_strength: float = 1.0,
             guidance_scale: float = 7.5,
             num_inference_steps: int = 20,
     ):
@@ -88,6 +89,7 @@ class UniControl:
         cond = {"c_concat": [control], "c_crossattn": [self.model.get_learned_conditioning([prompt])], "task": self.task_dic}
         un_cond = {"c_concat": [control], "c_crossattn": [self.model.get_learned_conditioning([negative_prompt])]}
 
+        self.model.control_scales = [control_strength] * 13
         samples, intermediates = self.ddim_sampler.sample(
             num_inference_steps,
             batch_size=1,

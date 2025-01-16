@@ -1,4 +1,4 @@
-# easy-control-diffusion
+# easy-control
 
 We provide simple python wrappers for various diffusion-based controllable generation models so that you can easily establish the baselines for your paper.
 For full functionalities of these models, please refer to their original repositories.
@@ -12,8 +12,8 @@ For full functionalities of these models, please refer to their original reposit
 Clone the repository:
 
 ```shell
-git clone https://github.com/xyfJASON/easy-control-diffusion.git
-cd easy-control-diffusion
+git clone https://github.com/xyfJASON/easy-control.git
+cd easy-control
 ```
 
 Create and activate a conda environment:
@@ -67,14 +67,40 @@ wget https://storage.googleapis.com/sfr-unicontrol-data-research/unicontrol_v1.1
 from easy_control import UniControl
 
 unicontrol = UniControl(
-    pretrained_model_path="./ckpts/unicontrol/unicontrol.ckpt",
+    pretrained_model_path="./ckpts/unicontrol/unicontrol_v1.1.ckpt",
     task_name="seg",
-    version="v1",
+    version="v1.1",
     device="cuda",
 )
 result = unicontrol.sample(
     control_image="./test_images/scenery-segmentation.png",
     prompt="a beautiful landscape in winter",
+    positive_prompt="best quality, extremely detailed",
+    negative_prompt="worst quality",
+)
+result.show()
+```
+
+### Uni-ControlNet ([arXiv](https://arxiv.org/abs/2305.16322) | [GitHub](https://github.com/ShihaoZhaoZSH/Uni-ControlNet))
+
+```shell
+# Download pretrained models
+mkdir -p ./ckpts/uni_controlnet
+huggingface-cli download shihaozhao/uni-controlnet uni.ckpt --local-dir ./ckpts/uni_controlnet
+```
+
+```python
+from easy_control import UniControlNet
+
+unicontrolnet = UniControlNet(
+    pretrained_model_path="./ckpts/uni_controlnet/uni.ckpt",
+    task_name="canny",
+    device="cuda",
+)
+result = unicontrolnet.sample(
+    prompt="a rabbit",
+    control_image="./test_images/rabbit-canny.png",
+    content_image="./test_images/bear.jpg",
     positive_prompt="best quality, extremely detailed",
     negative_prompt="worst quality",
 )

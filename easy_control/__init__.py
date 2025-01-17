@@ -3,3 +3,4 @@ from .ctrl_x import CtrlX
 from .controlnext_sdxl import ControlNeXtSDXL
 from .unicontrol import UniControl
 from .uni_controlnet import UniControlNet
+from .controlnet_union import ControlNetUnion

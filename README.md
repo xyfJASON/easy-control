@@ -3,6 +3,8 @@
 We provide simple python wrappers for various diffusion-based controllable generation models so that you can easily establish the baselines for your paper.
 For full functionalities of these models, please refer to their original repositories.
 
+The models are not fully tested, feel free to report any issues or bugs.
+
 
 
 ## Installation
@@ -107,6 +109,26 @@ result = unicontrolnet.sample(
 result.show()
 ```
 
+### ControlNet-Union (ControlNetPlus) ([GitHub](https://github.com/xinsir6/ControlNetPlus))
+
+```python
+from easy_control import ControlNetUnion
+
+controlnet_union = ControlNetUnion(
+    task_name="openpose",
+    pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0",
+    controlnet_union_model_name_or_path="xinsir/controlnet-union-sdxl-1.0",
+    vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix",
+    device="cuda",
+)
+result = controlnet_union.sample(
+    prompt="an old man walking in wonderland",
+    control_image="./test_images/ski-openpose.png",
+    negative_prompt="worst quality, lowres, blurry",
+)
+result.show()
+```
+
 ### Ctrl-X ([arXiv](https://arxiv.org/abs/2406.07540) | [GitHub](https://github.com/genforce/ctrl-x/tree/main) | [website](https://genforce.github.io/ctrl-x))
 
 ```python
@@ -170,6 +192,24 @@ result.show()
   volume={36},
   year={2024}
 }
+```
+
+```
+@article{zhao2024uni,
+  title={Uni-controlnet: All-in-one control to text-to-image diffusion models},
+  author={Zhao, Shihao and Chen, Dongdong and Chen, Yen-Chun and Bao, Jianmin and Hao, Shaozhe and Yuan, Lu and Wong, Kwan-Yee K},
+  journal={Advances in Neural Information Processing Systems},
+  volume={36},
+  year={2024}
+}
+```
+
+```
+@misc{xinsir6,
+  title={ControlNet++: All-in-one ControlNet for image generations and editing!},
+  author={xinsir6},
+  url={https://github.com/xinsir6/ControlNetPlus},
+  year={2024}
 ```
 
 ```

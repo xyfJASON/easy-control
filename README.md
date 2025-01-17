@@ -36,12 +36,63 @@ pip install -r requirements.txt
 
 ## Usage
 
+### ControlNet ([arXiv](https://arxiv.org/abs/2302.05543) | [GitHub](https://github.com/lllyasviel/ControlNet))
+
+```python
+from easy_control import ControlNet
+
+controlnet = ControlNet(
+    pretrained_model_name_or_path="runwayml/stable-diffusion-v1-5",
+    control_model_name_or_path="lllyasviel/control_v11p_sd15_canny",
+    device="cuda",
+)
+result = controlnet.sample(
+    control_image="./test_images/rabbit-canny.png",
+    prompt="a rabbit in the forest",
+    negative_prompt="worst quality",
+)
+result.show()
+```
+
+```python
+from easy_control import ControlNetSDXL
+
+controlnet = ControlNetSDXL(
+    pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0",
+    control_model_name_or_path="diffusers/controlnet-canny-sdxl-1.0",
+    vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix",
+    device="cuda",
+)
+result = controlnet.sample(
+    control_image="./test_images/rabbit-canny.png",
+    prompt="a rabbit in the forest",
+    negative_prompt="worst quality",
+)
+result.show()
+```
+
 ### T2I-Adapter ([arXiv](https://arxiv.org/abs/2302.08453) | [GitHub](https://github.com/TencentARC/T2I-Adapter))
 
 ```python
 from easy_control import T2IAdapter
 
 t2iadapter = T2IAdapter(
+    pretrained_model_name_or_path="runwayml/stable-diffusion-v1-5",
+    adapter_model_name_or_path="TencentARC/t2iadapter_depth_sd15v2",
+    device="cuda",
+)
+result = t2iadapter.sample(
+    control_image="./test_images/city-depth.png",
+    prompt="a photo of a city at night, stars in the sky",
+    negative_prompt="worst quality",
+)
+result.show()
+```
+
+```python
+from easy_control import T2IAdapterSDXL
+
+t2iadapter = T2IAdapterSDXL(
     pretrained_model_name_or_path="stabilityai/stable-diffusion-xl-base-1.0",
     adapter_model_name_or_path="TencentARC/t2i-adapter-depth-midas-sdxl-1.0",
     vae_model_name_or_path="madebyollin/sdxl-vae-fp16-fix",

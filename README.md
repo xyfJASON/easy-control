@@ -180,6 +180,26 @@ result = controlnet_union.sample(
 result.show()
 ```
 
+### ControlNet++ (ControlNetPlusPlus) ([arXiv](https://arxiv.org/abs/2404.07987) | [GitHub](https://github.com/liming-ai/ControlNet_Plus_Plus))
+
+Download the pretrained models from [here](https://huggingface.co/limingcv/reward_controlnet/tree/main/checkpoints) and put them in `./ckpts/controlnet_plus_plus`.
+
+```python
+from easy_control import ControlNet
+
+controlnet = ControlNet(
+    pretrained_model_name_or_path="runwayml/stable-diffusion-v1-5",
+    control_model_name_or_path="./ckpts/controlnet_plus_plus/canny/controlnet",
+    device="cuda",
+)
+result = controlnet.sample(
+    control_image="./test_images/rabbit-canny.png",
+    prompt="a rabbit on the grass",
+    negative_prompt="worst quality",
+)
+result.show()
+```
+
 ### Ctrl-X ([arXiv](https://arxiv.org/abs/2406.07540) | [GitHub](https://github.com/genforce/ctrl-x/tree/main) | [website](https://genforce.github.io/ctrl-x))
 
 ```python
@@ -261,6 +281,17 @@ result.show()
   author={xinsir6},
   url={https://github.com/xinsir6/ControlNetPlus},
   year={2024}
+```
+
+```
+@inproceedings{li2025controlnet,
+  title={ControlNet $$++ $$: Improving Conditional Controls with Efficient Consistency Feedback},
+  author={Li, Ming and Yang, Taojiannan and Kuang, Huafeng and Wu, Jie and Wang, Zhaoning and Xiao, Xuefeng and Chen, Chen},
+  booktitle={European Conference on Computer Vision},
+  pages={129--147},
+  year={2025},
+  organization={Springer}
+}
 ```
 
 ```

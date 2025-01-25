@@ -3,7 +3,7 @@ from PIL import Image
 
 import torch
 from diffusers import StableDiffusionAdapterPipeline, StableDiffusionXLAdapterPipeline
-from diffusers import AutoencoderKL, T2IAdapter as T2IAdapterModel
+from diffusers import AutoencoderKL, EulerAncestralDiscreteScheduler, T2IAdapter as T2IAdapterModel
 from diffusers.utils import load_image
 
 
@@ -69,7 +69,7 @@ class T2IAdapterSDXL:
             adapter_model_name_or_path: str = "TencentARC/t2i-adapter-lineart-sdxl-1.0",
             vae_model_name_or_path: str = "madebyollin/sdxl-vae-fp16-fix",
             torch_dtype: torch.dtype = torch.float16,
-            variant: str = None,
+            variant: str = "fp16",
             device: str = "cuda",
     ):
         self.device = device
@@ -79,6 +79,10 @@ class T2IAdapterSDXL:
             torch_dtype=torch_dtype,
             varient=variant,
         ).to(device)
+        self.euler_a = EulerAncestralDiscreteScheduler.from_pretrained(
+            pretrained_model_name_or_path=pretrained_model_name_or_path,
+            subfolder="scheduler",
+        )
         self.vae = AutoencoderKL.from_pretrained(
             pretrained_model_name_or_path=vae_model_name_or_path,
             torch_dtype=torch_dtype,
@@ -87,6 +91,7 @@ class T2IAdapterSDXL:
             pretrained_model_name_or_path=pretrained_model_name_or_path,
             vae=self.vae,
             adapter=self.adapter,
+            scheduler=self.euler_a,
             torch_dtype=torch_dtype,
             variant=variant,
         ).to(device)

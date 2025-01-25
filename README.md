@@ -1,9 +1,10 @@
 # easy-control
 
-We provide simple python wrappers for various diffusion-based controllable generation models so that you can easily establish the baselines for your paper.
-For full functionalities of these models, please refer to their original repositories.
+A simple and easy-to-use Python package for various controllable text-to-image diffusion models, useful for quickly establishing a baseline for your paper or project.
 
-The models are not fully tested, feel free to report any issues or bugs.
+Note: We only provide the basic usage of these models, for more advanced features, please refer to their original repositories.
+
+Warning: The models are not fully tested, feel free to report any issues.
 
 
 
@@ -28,7 +29,6 @@ conda activate easy-control
 Install the dependencies:
 
 ```shell
-pip install torch torchvision
 pip install -r requirements.txt
 ```
 
@@ -54,6 +54,10 @@ result = controlnet.sample(
 result.show()
 ```
 
+|                        control                         |                     result 1                      |                     result 2                      |
+|:------------------------------------------------------:|:-------------------------------------------------:|:-------------------------------------------------:|
+| <img src="./test_images/rabbit-canny.png" width=200 /> | <img src="./results/controlnet1.png" width=200 /> | <img src="./results/controlnet2.png" width=200 /> |
+
 ```python
 from easy_control import ControlNetSDXL
 
@@ -64,12 +68,18 @@ controlnet = ControlNetSDXL(
     device="cuda",
 )
 result = controlnet.sample(
-    control_image="./test_images/rabbit-canny.png",
-    prompt="a rabbit in the forest",
+    control_image="./test_images/couple-canny.png",
+    prompt="a couple watching a romantic sunset, 4k photo",
     negative_prompt="worst quality",
 )
 result.show()
 ```
+
+|                        control                         |                        result 1                        |                        result 2                        |
+|:------------------------------------------------------:|:------------------------------------------------------:|:------------------------------------------------------:|
+| <img src="./test_images/couple-canny.png" width=200 /> | <img src="./results/controlnet_sdxl1.png" width=200 /> | <img src="./results/controlnet_sdxl2.png" width=200 /> |
+
+
 
 ### T2I-Adapter ([arXiv](https://arxiv.org/abs/2302.08453) | [GitHub](https://github.com/TencentARC/T2I-Adapter))
 
@@ -89,6 +99,10 @@ result = t2iadapter.sample(
 result.show()
 ```
 
+|                       control                        |                     result 1                      |                     result 2                      |
+|:----------------------------------------------------:|:-------------------------------------------------:|:-------------------------------------------------:|
+| <img src="./test_images/city-depth.png" width=200 /> | <img src="./results/t2iadapter1.png" width=200 /> | <img src="./results/t2iadapter2.png" width=200 /> |
+
 ```python
 from easy_control import T2IAdapterSDXL
 
@@ -100,12 +114,18 @@ t2iadapter = T2IAdapterSDXL(
     device="cuda",
 )
 result = t2iadapter.sample(
-    control_image="./test_images/city-depth.png",
-    prompt="a photo of a city at night, stars in the sky",
+    control_image="./test_images/lecture-depth.png",
+    prompt="a toy spiderman giving a lecture, photorealistic",
     negative_prompt="worst quality",
 )
 result.show()
 ```
+
+|                         control                         |                        result 1                        |                        result 2                        |
+|:-------------------------------------------------------:|:------------------------------------------------------:|:------------------------------------------------------:|
+| <img src="./test_images/lecture-depth.png" width=200 /> | <img src="./results/t2iadapter_sdxl1.png" width=200 /> | <img src="./results/t2iadapter_sdxl2.png" width=200 /> |
+
+
 
 ### UniControl  ([arXiv](https://arxiv.org/abs/2305.11147) | [GitHub](https://github.com/salesforce/UniControl))
 
@@ -134,6 +154,12 @@ result = unicontrol.sample(
 result.show()
 ```
 
+|                            control                             |                     result 1                      |                     result 2                      |
+|:--------------------------------------------------------------:|:-------------------------------------------------:|:-------------------------------------------------:|
+| <img src="./test_images/scenery-segmentation.png" width=200 /> | <img src="./results/unicontrol1.png" width=200 /> | <img src="./results/unicontrol2.png" width=200 /> |
+
+
+
 ### Uni-ControlNet ([arXiv](https://arxiv.org/abs/2305.16322) | [GitHub](https://github.com/ShihaoZhaoZSH/Uni-ControlNet))
 
 ```shell
@@ -151,14 +177,20 @@ unicontrolnet = UniControlNet(
     device="cuda",
 )
 result = unicontrolnet.sample(
-    prompt="a rabbit",
     control_image="./test_images/rabbit-canny.png",
-    content_image="./test_images/bear.jpg",
+    content_image="./test_images/parrot.jpeg",
+    prompt="a rabbit",
     positive_prompt="best quality, extremely detailed",
     negative_prompt="worst quality",
 )
 result.show()
 ```
+
+|                        control                         |                      content                      |                        result                        |
+|:------------------------------------------------------:|:-------------------------------------------------:|:----------------------------------------------------:|
+| <img src="./test_images/rabbit-canny.png" width=200 /> | <img src="./test_images/parrot.jpeg" width=200 /> | <img src="./results/uni_controlnet.png" width=200 /> |
+
+
 
 ### ControlNet-Union (ControlNetPlus) ([GitHub](https://github.com/xinsir6/ControlNetPlus))
 
@@ -173,12 +205,18 @@ controlnet_union = ControlNetUnion(
     device="cuda",
 )
 result = controlnet_union.sample(
-    prompt="an old man walking in wonderland",
     control_image="./test_images/ski-openpose.png",
+    prompt="an old man walking in wonderland",
     negative_prompt="worst quality, lowres, blurry",
 )
 result.show()
 ```
+
+|                        control                         |                        result 1                         |                        result 2                         |
+|:------------------------------------------------------:|:-------------------------------------------------------:|:-------------------------------------------------------:|
+| <img src="./test_images/ski-openpose.png" width=200 /> | <img src="./results/controlnet_union1.png" width=200 /> | <img src="./results/controlnet_union2.png" width=200 /> |
+
+
 
 ### ControlNet++ (ControlNetPlusPlus) ([arXiv](https://arxiv.org/abs/2404.07987) | [GitHub](https://github.com/liming-ai/ControlNet_Plus_Plus))
 
@@ -200,6 +238,12 @@ result = controlnet.sample(
 result.show()
 ```
 
+|                        control                         |                          result 1                           |                          result 2                           |
+|:------------------------------------------------------:|:-----------------------------------------------------------:|:-----------------------------------------------------------:|
+| <img src="./test_images/rabbit-canny.png" width=200 /> | <img src="./results/controlnet_plus_plus1.png" width=200 /> | <img src="./results/controlnet_plus_plus2.png" width=200 /> |
+
+
+
 ### Ctrl-X ([arXiv](https://arxiv.org/abs/2406.07540) | [GitHub](https://github.com/genforce/ctrl-x/tree/main) | [website](https://genforce.github.io/ctrl-x))
 
 ```python
@@ -211,14 +255,20 @@ ctrl_x = CtrlX(
     device="cuda",
 )
 result = ctrl_x.sample(
+    structure_image="./test_images/coffee-normal.png",
     appearance_image="./test_images/cat.jpeg",
-    structure_image="./test_images/rabbit-canny.png",
-    prompt="a rabbit",
+    prompt="a cup of coffee",
     positive_prompt="high quality",
     negative_prompt="ugly, blurry, dark, low res, unrealistic",
 )
 result.show()
 ```
+
+|                        structure                        |                   appearance                   |                   result                    |
+|:-------------------------------------------------------:|:----------------------------------------------:|:-------------------------------------------:|
+| <img src="./test_images/coffee-normal.png" width=200 /> | <img src="./test_images/cat.jpeg" width=200 /> | <img src="./results/ctrlx.png" width=200 /> |
+
+
 
 ### ControlNeXt ([arXiv](https://arxiv.org/abs/2408.06070) | [GitHub](https://github.com/dvlab-research/ControlNeXt) | [website](https://pbihao.github.io/projects/controlnext/index.html))
 
@@ -239,9 +289,23 @@ result = controlnext_sdxl.sample(
 result.show()
 ```
 
+|                           control                           |                        result 1                         |                        result 2                         |
+|:-----------------------------------------------------------:|:-------------------------------------------------------:|:-------------------------------------------------------:|
+| <img src="./test_images/tower-depth-vidit.png" width=200 /> | <img src="./results/controlnext_sdxl1.png" width=200 /> | <img src="./results/controlnext_sdxl2.png" width=200 /> |
+
 
 
 ## References
+
+```
+@inproceedings{zhang2023adding,
+  title={Adding conditional control to text-to-image diffusion models},
+  author={Zhang, Lvmin and Rao, Anyi and Agrawala, Maneesh},
+  booktitle={Proceedings of the IEEE/CVF International Conference on Computer Vision},
+  pages={3836--3847},
+  year={2023}
+}
+```
 
 ```
 @inproceedings{mou2024t2i,

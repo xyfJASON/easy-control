@@ -295,6 +295,30 @@ result.show()
 
 
 
+### OminiControl ([arXiv](https://arxiv.org/abs/2411.15098) | [GitHub](https://github.com/Yuanshi9815/OminiControl))
+
+```python
+from easy_control import OminiControl
+
+ominicontrol = OminiControl(
+    pretrained_model_name_or_path="black-forest-labs/FLUX.1-schnell",
+    lora_model_name_or_path="Yuanshi/OminiControl",
+    condition_type="canny",
+    device="cuda",
+)
+result = ominicontrol.sample(
+    control_image="./test_images/vase-canny.png",
+    prompt="a vase with flowers",
+)
+result.show()
+```
+
+|                       control                        |                      result 1                       |                      result 2                       |
+|:----------------------------------------------------:|:---------------------------------------------------:|:---------------------------------------------------:|
+| <img src="./test_images/vase-canny.png" width=200 /> | <img src="./results/ominicontrol1.png" width=200 /> | <img src="./results/ominicontrol2.png" width=200 /> |
+
+
+
 ## References
 
 ```
@@ -373,6 +397,16 @@ result.show()
   title={Controlnext: Powerful and efficient control for image and video generation},
   author={Peng, Bohao and Wang, Jian and Zhang, Yuechen and Li, Wenbo and Yang, Ming-Chang and Jia, Jiaya},
   journal={arXiv preprint arXiv:2408.06070},
+  year={2024}
+}
+```
+
+```
+@article{tan2024ominicontrol,
+  title={Ominicontrol: Minimal and universal control for diffusion transformer},
+  author={Tan, Zhenxiong and Liu, Songhua and Yang, Xingyi and Xue, Qiaochu and Wang, Xinchao},
+  journal={arXiv preprint arXiv:2411.15098},
+  volume={3},
   year={2024}
 }
 ```

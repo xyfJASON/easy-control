@@ -69,5 +69,7 @@ class OminiControl:
             self.pipe,
             prompt=prompt,  # type: ignore
             conditions=[condition],
+            width=width,  # type: ignore
+            height=height,  # type: ignore
         ).images[0]
         return result

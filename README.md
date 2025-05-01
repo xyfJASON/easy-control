@@ -319,6 +319,43 @@ result.show()
 
 
 
+### EasyControl ([arXiv](https://arxiv.org/abs/2503.07027) | [GitHub](https://github.com/Xiaojiu-z/EasyControl))
+
+```shell
+# Download pretrained models
+mkdir -p ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/canny.safetensors --local-dir ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/depth.safetensors --local-dir ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/hedsketch.safetensors --local-dir ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/inpainting.safetensors --local-dir ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/pose.safetensors --local-dir ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/seg.safetensors --local-dir ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/subject.safetensors --local-dir ./ckpts/easy_control
+huggingface-cli download Xiaojiu-Z/EasyControl models/Ghibli.safetensors --local-dir ./ckpts/easy_control
+```
+
+```python
+from easy_control import EasyControl
+
+easycontrol = EasyControl(
+    pretrained_model_name_or_path="black-forest-labs/FLUX.1-dev",
+    lora_path="./ckpts/easy_control/models",
+    condition_type="pose",
+    device="cuda",
+)
+result = easycontrol.sample(
+    control_image="./test_images/ski-openpose.png",
+    prompt="a girl playing football",
+)
+result.show()
+```
+
+|                        control                         |                      result 1                      |                      result 2                      |
+|:------------------------------------------------------:|:--------------------------------------------------:|:--------------------------------------------------:|
+| <img src="./test_images/ski-openpose.png" width=200 /> | <img src="./results/easycontrol1.png" width=200 /> | <img src="./results/easycontrol2.png" width=200 /> |
+
+
+
 ## References
 
 ```

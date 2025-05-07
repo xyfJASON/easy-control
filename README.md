@@ -2,11 +2,20 @@
 
 A simple and easy-to-use Python package for various controllable text-to-image diffusion models, useful for quickly establishing a baseline for your paper or project.
 
-Note: We only provide the basic usage of these models, for more advanced features, please refer to their original repositories.
+Currently, we support the following models:
 
-Warning: The models are not fully tested, feel free to report any issues.
+- [ControlNet](#controlnet-arxiv--github)
+- [T2I-Adapter](#t2i-adapter-arxiv--github)
+- [UniControl](#unicontrol-arxiv--github)
+- [Uni-ControlNet](#uni-controlnet-arxiv--github)
+- [ControlNet-Union](#controlnet-union-controlnetplus-github)
+- [ControlNet++](#controlnet-controlnetplusplus-arxiv--github)
+- [Ctrl-X](#ctrl-x-arxiv--github--website)
+- [ControlNeXt](#controlnext-arxiv--github--website)
+- [OminiControl](#ominicontrol-arxiv--github)
+- [EasyControl](#easycontrol-arxiv--github)
 
-
+<br/>
 
 ## Installation
 
@@ -32,7 +41,7 @@ Install the dependencies:
 pip install -r requirements.txt
 ```
 
-
+<br/>
 
 ## Usage
 
@@ -354,7 +363,7 @@ result.show()
 |:------------------------------------------------------:|:--------------------------------------------------:|:--------------------------------------------------:|
 | <img src="./test_images/ski-openpose.png" width=200 /> | <img src="./results/easycontrol1.png" width=200 /> | <img src="./results/easycontrol2.png" width=200 /> |
 
-
+<br/>
 
 ## References
 
@@ -445,5 +454,14 @@ result.show()
   journal={arXiv preprint arXiv:2411.15098},
   volume={3},
   year={2024}
+}
+```
+
+```
+@article{zhang2025easycontrol,
+  title={Easycontrol: Adding efficient and flexible control for diffusion transformer},
+  author={Zhang, Yuxuan and Yuan, Yirui and Song, Yiren and Wang, Haofan and Liu, Jiaming},
+  journal={arXiv preprint arXiv:2503.07027},
+  year={2025}
 }
 ```
